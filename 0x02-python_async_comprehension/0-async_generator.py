@@ -8,7 +8,7 @@ from typing import Generator
 import random
 
 
-async def async_generator() -> Generator[int, None, None]:
+async def async_generator() -> Generator[float, None, None]:
     """This is an asychronous generator function
     that yields 10 values"""
     for i in range(10):
