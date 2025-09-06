@@ -24,7 +24,10 @@ def batch_processing(batch_size):
     This function processes each batch of
     data that is produced from the stream
     """
+    filtered_users = []
     for batch in stream_users_in_batches(batch_size):
         for row in batch:
             if row.get("age") > 25:
+                filtered_users.append(row)
                 print(row)
+    return filtered_users
