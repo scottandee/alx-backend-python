@@ -9,7 +9,7 @@ def stream_users_in_batches(batch_size):
     users data in batchees
     """
     connection = connect_to_prodev()
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     cursor.execute("SELECT * FROM user_data")
 
     while True:
@@ -26,10 +26,5 @@ def batch_processing(batch_size):
     """
     for batch in stream_users_in_batches(batch_size):
         for row in batch:
-            if row[3] > 25:
-                user = {
-                    'user_id': row[0],
-                    'name': row[1],
-                    "email": row[2],
-                    "age": row[3]}
-                print(user, end='\n')
+            if row.get("age") > 25:
+                print(row)
