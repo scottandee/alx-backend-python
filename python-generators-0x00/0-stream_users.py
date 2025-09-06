@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-connect_to_prodev =  __import__('seed').connect_to_prodev
+connect_to_prodev = __import__('seed').connect_to_prodev
+
 
 def stream_users():
     """
@@ -16,4 +17,3 @@ def stream_users():
         if row is None:
             break
         yield row
-
