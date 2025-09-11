@@ -52,5 +52,6 @@ def update_user_email(conn, user_id, new_email):
         raise ValueError(f"No user found with id={user_id}")
     return cursor.rowcount
 
+
 # Update user's email with automatic transaction handling
 update_user_email(user_id=1, new_email='Crawford_Cartwright@hotmail.com')
