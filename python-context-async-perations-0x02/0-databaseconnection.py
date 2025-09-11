@@ -3,6 +3,9 @@ import sqlite3
 
 
 class DatabaseConnection:
+    def __init__(self):
+        pass
+    
     def __enter__(self):
         """
         Setup method:
