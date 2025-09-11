@@ -8,6 +8,7 @@ def log_queries(func):
     invoking the original function.
     """
     functools.wraps(func)
+
     def wrapper_log_query(query, *args, **kwargs):
         print(f"Query: {query}")
         return func(query, *args, **kwargs)
@@ -28,5 +29,6 @@ def fetch_all_users(query):
     conn.close()
     return results
 
-#### fetch users while logging the query
+
+# fetch users while logging the query
 users = fetch_all_users(query="SELECT * FROM users")
