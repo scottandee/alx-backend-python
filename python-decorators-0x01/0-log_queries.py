@@ -21,7 +21,7 @@ def fetch_all_users(query):
     fetches all users and then closes the connection
     to the database
     """
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
     cursor.execute(query)
     results = cursor.fetchall()
@@ -29,5 +29,6 @@ def fetch_all_users(query):
     return results
 
 
-# fetch users while logging the query
-users = fetch_all_users(query="SELECT * FROM users")
+if __name__ == "__main__":
+    # fetch users while logging the query
+    users = fetch_all_users(query="SELECT * FROM users")

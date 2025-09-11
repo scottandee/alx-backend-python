@@ -2,7 +2,7 @@
 import time
 import functools
 
-with_db_connection = __import__("2-transactional").with_db_connection
+with_db_connection = __import__("1-with_db_connection").with_db_connection
 
 
 def retry_on_failure(retries, delay):
@@ -20,7 +20,8 @@ def retry_on_failure(retries, delay):
                     return func(*args, **kwargs)
                 except Exception as e:
                     last_exception = e
-                    print(f"Attempt {attempt} failed: {e}. Retrying in {delay}s...")
+                    print(
+                        f"Attempt {attempt} failed: {e}. Retrying in {delay}s...")
                     time.sleep(delay)
             raise last_exception
         return wrapper
@@ -43,9 +44,10 @@ def fetch_users_error_with_retry(conn):
     return cursor.fetchall()
 
 
-# attempt to fetch users with automatic retry on failure
-users = fetch_users_with_retry()
-print(users)
+if __name__ == "__main__":
+    # attempt to fetch users with automatic retry on failure
+    users = fetch_users_with_retry()
+    print(users)
 
-users = fetch_users_error_with_retry()
-print(users)
+    users = fetch_users_error_with_retry()
+    print(users)
