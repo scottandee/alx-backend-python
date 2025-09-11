@@ -10,8 +10,7 @@ def with_db_connection(func):
     to the decorated function, and closes the connection
     after the function executes.
     """
-    functools.wraps(func)
-
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         connection = sqlite3.connect('users.db')
         user = func(conn=connection, *args, **kwargs)

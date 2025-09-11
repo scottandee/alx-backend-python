@@ -7,8 +7,7 @@ def log_queries(func):
     This decorator prints the query argument before
     invoking the original function.
     """
-    functools.wraps(func)
-
+    @functools.wraps(func)
     def wrapper_log_query(query, *args, **kwargs):
         print(f"Query: {query}")
         return func(query, *args, **kwargs)
