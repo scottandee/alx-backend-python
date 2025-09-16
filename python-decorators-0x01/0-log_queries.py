@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 import functools
 
 
@@ -9,7 +10,8 @@ def log_queries(func):
     """
     @functools.wraps(func)
     def wrapper_log_query(query, *args, **kwargs):
-        print(f"Query: {query}")
+        current_time = datetime.now()
+        print(f"{current_time} [Query]: {query}")
         return func(query, *args, **kwargs)
     return wrapper_log_query
 
