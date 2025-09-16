@@ -35,6 +35,7 @@ class TestAccessNestedMap(unittest.TestCase):
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
 
+
 class TestGetJson(unittest.TestCase):
     """
     This class tests the get_json function
@@ -49,11 +50,13 @@ class TestGetJson(unittest.TestCase):
         This method tests valid input cases
         """
         mock_get_request = Mock()
-        mock_get_request.json.return_value = payload    
+        mock_get_request.json.return_value = payload
 
-        with patch("utils.requests.get", return_value=mock_get_request) as mock_request:
-            mock_request.assert_called_once_with(url)
+        with patch(
+            "utils.requests.get", return_value=mock_get_request
+        ) as mock_request:
             self.assertEqual(get_json(url), payload)
+            mock_request.assert_called_once_with(url)
 
 
 
