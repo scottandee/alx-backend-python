@@ -26,10 +26,20 @@ INSTALLED_APPS = [
 
     # Third-party Services
     'rest_framework',
+    'rest_framework.permissions.IsAuthenticated',
+    'rest_framework.authentication.SessionAuthentication'
 
     # Local Apps
     'chats.apps.ChatsConfig'
 ]
+
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+      'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+      'rest_framework.authentication.SessionAuthentication',
+      'rest_framework.authentication.BasicAuthentication',
+  ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
