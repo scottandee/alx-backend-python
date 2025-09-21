@@ -26,13 +26,12 @@ INSTALLED_APPS = [
 
     # Third-party Services
     'rest_framework',
-    'rest_framework.permissions.IsAuthenticated',
-    'rest_framework.authentication.SessionAuthentication'
 
     # Local Apps
     'chats.apps.ChatsConfig'
 ]
 
+AUTH_USER_MODEL = "chats.User"
 REST_FRAMEWORK = {
   'DEFAULT_AUTHENTICATION_CLASSES': (
       'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
