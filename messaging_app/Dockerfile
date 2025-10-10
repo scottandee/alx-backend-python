@@ -6,7 +6,7 @@ WORKDIR /messaging_app
 COPY . .
 
 # Install dependencies
-RUN pip install -r Requirements.txt
+RUN pip install -r requirements.txt
 
 # Expose port
 EXPOSE 8000
