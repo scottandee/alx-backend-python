@@ -19,6 +19,7 @@ services:
 
   web:
     build: .
+    command: python3 manage.py runserver
     ports:
       - '8000:8000'
     volumes:
