@@ -20,4 +20,4 @@ wrk -t4 -c50 -d15 $URL
 wrk -t8 -c200 -d15 $URL
 
 # Monitor resource usage of pods
-kubctl top pods
+kubectl top pods
