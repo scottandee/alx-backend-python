@@ -1,0 +1,8 @@
+#! /bin/bash
+#
+# This script starts a new kubernetes cluster,
+# verifies that it's running and retrieves all avaliable pods
+
+minikube start
+kubectl cluster-info
+kubectl get pods
