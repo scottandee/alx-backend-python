@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # Third-party Services
     'rest_framework',
+    'rest_framework_simplejwt',
 
     # Local Apps
     'chats.apps.ChatsConfig'
@@ -40,9 +41,12 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "chats.User"
 REST_FRAMEWORK = {
   'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework.authentication.SessionAuthentication',
-      'rest_framework.authentication.BasicAuthentication',
+      'rest_framework_simplejwt.authentication.JWTAuthentication',
+      'rest_framework.authentication.SessionAuthentication'
   ),
+}
+SIMPLE_JWT = {
+    "USER_ID_FIELD": "user_id",
 }
 
 MIDDLEWARE = [
