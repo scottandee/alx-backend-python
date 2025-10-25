@@ -12,6 +12,8 @@ class IsParticipantOfConversation(permissions.BasePermission):
         messages or conversations
         """
         user = request.user
+        if not user or not user.is_authenticated:
+            return False
 
         # If the object is a Conversation
         if isinstance(obj, Conversation):
@@ -27,11 +29,15 @@ class IsParticipantOfConversation(permissions.BasePermission):
         """
         Restrict sending messages to participants only.
         """
+        user = request.user
+        if not user or not user.is_authenticated:
+            return False
+        
         conversation_id = request.data.get("conversation") or view.kwargs.get("conversation_pk")
         if conversation_id:
             try:
                 conversation = Conversation.objects.get(pk=conversation_id)
-                return request.user in conversation.participants.all()
+                return user in conversation.participants.all()
             except Conversation.DoesNotExist:
                 return False
         return True
