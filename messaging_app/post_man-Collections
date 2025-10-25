@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "b9e66b68-7235-4295-b85f-70d917dd521d",
+		"name": "messaging-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33965926"
+	},
+	"item": [
+		{
+			"name": "conversations",
+			"item": [
+				{
+					"name": "fetch all conversations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/conversations/"
+					},
+					"response": []
+				},
+				{
+					"name": "delete conversation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/conversations/:id/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"conversations",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1ccef4cf-b4c9-4569-a26f-fe0afad6ff8e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch conversation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/conversations/:id/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"conversations",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5dbeda6b-f3c0-46b1-9fa7-280bcfc7530a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"participant\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/conversations/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "messages",
+			"item": [
+				{
+					"name": "fetch messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/messages/"
+					},
+					"response": []
+				},
+				{
+					"name": "fetch message",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "scott",
+								"username": "scott"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/messages/:id/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"messages",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5c87efab-c114-4b91-bf96-9be8d51cdec6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message_body\": \"Bottler\",\r\n    \"conversation\": \"5dbeda6b-f3c0-46b1-9fa7-280bcfc7530a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/messages/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "get token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "scott",
+								"username": "scott"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"scott\",\r\n    \"password\": \"scott\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/token/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMzkxMzc5LCJpYXQiOjE3NjEzODc3NzksImp0aSI6IjY4MTI3YWYzNDMwZDRhYmViNTA0ZWY0MjQ1ZmRmMWRjIiwidXNlcl9pZCI6IjA2NmRkYzUzLTEwZWMtNDUyYy05Njc1LTQxNWI5YWE3YjU4MyJ9.ZVM51M09H4fvUzK6ezCp7yJm8eAcjad__2sfrBVpcww"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
