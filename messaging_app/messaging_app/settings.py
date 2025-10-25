@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # Third-party Services
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_filters',
 
     # Local Apps
     'chats.apps.ChatsConfig'
@@ -49,6 +50,9 @@ REST_FRAMEWORK = {
       'rest_framework.authentication.BasicAuthentication',
       'rest_framework.authentication.SessionAuthentication'
   ),
+  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+  'PAGE_SIZE': 20,
+  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 SIMPLE_JWT = {
     "USER_ID_FIELD": "user_id",

@@ -2,6 +2,8 @@ from rest_framework import viewsets, status, filters, permissions
 from chats.serializers import ConversationSerializer, MessageSerializer
 from chats.models import Conversation, Message
 from chats.permissions import IsParticipantOfConversation
+from chats.pagination import StandardResultsSetPagination
+from chats.filters import MessageFilter
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
@@ -15,8 +17,6 @@ class ConversationViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated, IsParticipantOfConversation
     ]
 
-    # Permissions: Only participants of conversation should be able to view/create/update conversation and it's messages.
-
     def get_queryset(self):
         # Only show conversations the user participates in
         user = self.request.user
@@ -29,7 +29,12 @@ class MessageViewSet(viewsets.ModelViewSet):
     """
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
-    permission_classes = [IsParticipantOfConversation]
+    permission_classes = [
+        permissions.IsAuthenticated, IsParticipantOfConversation
+    ]
+    pagination_class = StandardResultsSetPagination
+
+    filterset_class = MessageFilter
 
     def get_queryset(self):
         user = self.request.user
