@@ -33,9 +33,4 @@ class MessageViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         # Automatically assign the sender to the current user
-        message = serializer.save(sender=self.request.user)
-
-        conversation = message.conversation
-        if self.request.user not in conversation.participants.all():
-            conversation.participants.add(self.request.user)
-            conversation.save()
+        serializer.save(sender=self.request.user)

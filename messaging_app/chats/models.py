@@ -23,24 +23,12 @@ class User(AbstractUser):
 
 class Conversation(models.Model):
     conversation_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    participants = models.ManyToManyField(User)
+    participants = models.ManyToManyField(User, related_name='conversations')
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Message(models.Model):
-    message_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
-    conversation = models.ForeignKey(
-        Conversation,
-        related_name="messages",
-        on_delete=models.CASCADE,
-        db_column="conversation_id",
-    )
-    sender = models.ForeignKey(
-        User,
-        related_name="messages",
-        on_delete=models.CASCADE,
-        db_column="sender_id",
-    )
+    message_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    conversation = models.ForeignKey(Conversation, related_name="messages", on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name="messages", on_delete=models.CASCADE)
     message_body = models.TextField(null=False)
     sent_at = models.DateTimeField(auto_now_add=True)

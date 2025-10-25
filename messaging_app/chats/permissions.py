@@ -7,6 +7,10 @@ class IsParticipantOfConversation(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
+        """
+        Make sure only participants can PUT/GET/DELETE
+        messages or conversations
+        """
         user = request.user
 
         # If the object is a Conversation
@@ -21,7 +25,7 @@ class IsParticipantOfConversation(permissions.BasePermission):
 
     def has_permission(self, request, view):
         """
-        Restrict creation (sending message) to participants only.
+        Restrict sending messages to participants only.
         """
         conversation_id = request.data.get("conversation") or view.kwargs.get("conversation_pk")
         if conversation_id:
