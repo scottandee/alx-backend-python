@@ -20,9 +20,9 @@ class MessageHistorySerializer(serializers.ModelSerializer):
         model = MessageHistory
         fields = [
             'id',
-            'content'
+            'content',
             'edited_by',
-            'edited_at'
+            'edited_at',
         ]
 
 
@@ -30,6 +30,7 @@ class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.PrimaryKeyRelatedField(read_only=True)
     receiver = serializers.PrimaryKeyRelatedField(read_only=True)
     message_history = MessageHistorySerializer(many=True, read_only=True)
+    replies = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
@@ -37,10 +38,20 @@ class MessageSerializer(serializers.ModelSerializer):
             'id',
             'sender',
             'receiver',
-            'content'
-            'timestamp'
-            'edited'
+            'content',
+            'timestamp',
+            'edited',
+            'message_history',
+            'replies',
         ]
+
+    def get_replies(self, obj):
+        # Recursively serialize child replies
+        if obj.replies.exists():
+            serializer = MessageSerializer(
+                obj.replies.all(), many=True, context=self.context)
+            return serializer.data
+        return []
 
 
 class NotificationSerializer(serializers.ModelSerializer):

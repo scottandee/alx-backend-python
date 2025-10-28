@@ -3,7 +3,8 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from messaging.models import User
+from messaging.models import User, Message
+from messaging.serializer import MessageSerializer
 
 
 @api_view(['DELETE'])
@@ -14,3 +15,17 @@ def delete_user(request):
     user.delete()
 
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+@authentication_classes([BasicAuthentication])
+def fetch_messages(request):
+    message = Message.objects.filter(
+        parent_message__isnull=True,
+        sender=request.user
+    ).select_related(
+        'receiver', 'sender'
+    ).prefetch_related('replies', 'replies__sender')
+
+    serializer = MessageSerializer(message, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
