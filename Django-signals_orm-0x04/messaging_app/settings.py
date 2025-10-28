@@ -58,6 +58,8 @@ REST_FRAMEWORK = {
     )
 }
 
+CACHES = { 'default': { 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', 'LOCATION': 'unique-snowflake', } }
+
 ROOT_URLCONF = 'messaging_app.urls'
 
 TEMPLATES = [

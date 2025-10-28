@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from messaging.managers import UnreadMessagesManager
 import uuid
 
 
@@ -33,8 +34,10 @@ class Message(models.Model):
         related_name='replies'
     )
     content = models.TextField()
+    read = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     edited = models.BooleanField(default=False)
+    unread = UnreadMessagesManager()
 
     def __str__(self):
         return f'Message {self.id} from {self.sender.id} to {self.receiver.id}'
