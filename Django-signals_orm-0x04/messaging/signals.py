@@ -1,6 +1,7 @@
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save, pre_save, post_delete
 from django.dispatch import receiver
-from messaging.models import Message, Notification, MessageHistory
+from django.db import transaction
+from messaging.models import Message, Notification, MessageHistory, User
 
 
 @receiver(post_save, sender=Message, dispatch_uid='create_notification')
@@ -29,3 +30,11 @@ def create_message_history(sender, instance, **kwargs):
             edited_by=instance.sender,
         )
         instance.edited = True
+
+
+@receiver(post_delete, sender=User, dispatch_uid='delete_user_information')
+def delete_user_info(sender, instance, **kwargs):
+    with transaction.atomic():
+        Notification.objects.filter(receiver=instance).delete()
+        Message.objects.filter(receiver=instance).delete()
+        Message.objects.filter(sender=instance).delete()

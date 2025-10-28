@@ -9,6 +9,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     password_hash = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'User: {self.id}'
@@ -39,6 +40,7 @@ class Notification(models.Model):
         related_name='notifications',
         on_delete=models.CASCADE)
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Notification {self.id} for {self.receiver.id}: {self.message.content}'
