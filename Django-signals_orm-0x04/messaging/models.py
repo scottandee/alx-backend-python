@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 
+
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     email = models.EmailField(null=False, unique=True, db_index=True)
@@ -12,21 +13,46 @@ class User(AbstractUser):
     def __str__(self):
         return f'User: {self.id}'
 
+
 class Message(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    sender = models.ForeignKey(
+        User,
+        related_name='sent_messages',
+        on_delete=models.CASCADE)
+    receiver = models.ForeignKey(
+        User,
+        related_name='received_messages',
+        on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    edited = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Message from {self.sender.id} to {self.recipient.id}'
+        return f'Message {self.id} from {self.sender.id} to {self.receiver.id}'
+
 
 class Notification(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    receiver = models.ForeignKey(User, related_name='notifications', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(
+        User,
+        related_name='notifications',
+        on_delete=models.CASCADE)
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return f'Notification for {self.recipient.id}: {self.message.content}'
 
+    def __str__(self):
+        return f'Notification {self.id} for {self.receiver.id}: {self.message.content}'
+
+
+class MessageHistory(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    message = models.ForeignKey(
+        Message,
+        related_name='message_history',
+        on_delete=models.CASCADE)
+    content = models.TextField()
+    edited_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    edited_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'MessageHistory {self.id} for message {self.message.id}: {self.content}'
