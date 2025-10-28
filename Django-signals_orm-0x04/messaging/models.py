@@ -15,7 +15,7 @@ class User(AbstractUser):
 class Message(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
-    recipient = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -24,7 +24,7 @@ class Message(models.Model):
 
 class Notification(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    recipient = models.ForeignKey(User, related_name='notifications', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='notifications', on_delete=models.CASCADE)
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     
     def __str__(self):
