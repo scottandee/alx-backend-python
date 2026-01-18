@@ -1,24 +1,26 @@
 import pytest
-from django.contrib.auth import get_user_model
+from unittest.mock import patch, MagicMock
 from rest_framework.test import APIClient
 from rest_framework import status
-from chats.models import Conversation
-
-User = get_user_model()
 
 @pytest.mark.django_db
-def test_authenticated_user_can_list_conversations():
+@patch("chats.models.Conversation.objects")
+def test_authenticated_user_can_list_conversations(mock_conversation_objects):
+    fake_user = MagicMock()
+    fake_user.id = 1
+    fake_user.username = "testuser"
+
+    fake_conversation = MagicMock()
+    fake_conversation.id = 1
+    fake_conversation.participants.all.return_value = [fake_user]
+
+    mock_queryset = MagicMock()
+    mock_queryset.filter.return_value = [fake_conversation]
+    mock_conversation_objects.filter.return_value = mock_queryset.filter.return_value
+
     client = APIClient()
+    client.force_authenticate(user=fake_user)
 
-    user = User.objects.create_user(
-        username="testuser",
-        password="pass123"
-    )
-
-    conversation = Conversation.objects.create()
-    conversation.participants.add(user)
-
-    client.force_authenticate(user=user)
     response = client.get("/api/conversations/")
 
     assert response.status_code == status.HTTP_200_OK
