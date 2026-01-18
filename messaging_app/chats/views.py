@@ -11,7 +11,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
     Viewset for CRUD operations on conversation entities
     """
     serializer_class = ConversationSerializer
-    queryset = Conversation.objects.all()
+    queryset = Conversation.objects.all().order_by("-created_at")
     filter_backends = [filters.SearchFilter]
     permission_classes = [
         permissions.IsAuthenticated, IsParticipantOfConversation
