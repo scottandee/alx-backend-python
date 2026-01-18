@@ -3,7 +3,6 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 
-@pytest.mark.django_db(transaction=False)
 def test_health_endpoint_no_db():
     client = APIClient()
     response = client.get("/api/health/")
