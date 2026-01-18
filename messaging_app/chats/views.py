@@ -4,6 +4,10 @@ from chats.models import Conversation, Message
 from chats.permissions import IsParticipantOfConversation
 from chats.pagination import StandardResultsSetPagination
 from chats.filters import MessageFilter
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
@@ -43,3 +47,10 @@ class MessageViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Automatically assign the sender to the current user
         serializer.save(sender=self.request.user)
+
+
+class HealthCheckView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
