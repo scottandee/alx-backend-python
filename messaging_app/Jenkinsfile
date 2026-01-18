@@ -4,6 +4,12 @@ pipeline {
     environment {
         APP_DIR = "messaging_app"
         VENV = ".venv"
+        MYSQL_DB = "messaging_app"
+        MYSQL_USER = "alx_user"
+        MYSQL_PASSWORD = credentials('MYSQL_PASSWORD')
+        MYSQL_HOST = "127.0.0.1"
+        MYSQL_PORT = "3306"
+        DJANGO_SETTINGS_MODULE = "messaging_app.settings"
     }
 
     stages {
