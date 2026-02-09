@@ -21,7 +21,8 @@ class UserSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     """Serializer for Message model"""
     sender = serializers.PrimaryKeyRelatedField(read_only=True)
-    conversation = serializers.PrimaryKeyRelatedField(queryset=Conversation.objects.all())
+    conversation = serializers.PrimaryKeyRelatedField(
+        queryset=Conversation.objects.all())
 
     class Meta:
         model = Message
@@ -37,7 +38,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class ConversationSerializer(serializers.ModelSerializer):
     """Serializer for Conversation model"""
-    participants = serializers.PrimaryKeyRelatedField(many=True, queryset=User.objects.all())
+    participants = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=User.objects.all())
     messages = MessageSerializer(many=True, read_only=True)
 
     class Meta:
@@ -49,7 +51,7 @@ class ConversationSerializer(serializers.ModelSerializer):
             'created_at',
         ]
         read_only_fields = ['conversation_id', 'created_at']
-    
+
     def create(self, validated_data):
         participants = validated_data.pop('participants', [])
         conversation = Conversation.objects.create(**validated_data)

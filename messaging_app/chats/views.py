@@ -6,7 +6,6 @@ from chats.pagination import StandardResultsSetPagination
 from chats.filters import MessageFilter
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 
@@ -43,7 +42,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Message.objects.filter(sender=user)
-    
+
     def perform_create(self, serializer):
         # Automatically assign the sender to the current user
         serializer.save(sender=self.request.user)

@@ -1,6 +1,7 @@
 from rest_framework import permissions
 from chats.models import Conversation
 
+
 class IsParticipantOfConversation(permissions.BasePermission):
     """
     Allows access only to participants of a conversation.
@@ -32,8 +33,9 @@ class IsParticipantOfConversation(permissions.BasePermission):
         user = request.user
         if not user or not user.is_authenticated:
             return False
-        
-        conversation_id = request.data.get("conversation") or view.kwargs.get("conversation_pk")
+
+        conversation_id = request.data.get(
+            "conversation") or view.kwargs.get("conversation_pk")
         if conversation_id:
             try:
                 conversation = Conversation.objects.get(pk=conversation_id)

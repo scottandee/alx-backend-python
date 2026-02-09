@@ -1,7 +1,6 @@
-# chats/tests/test_health.py
-import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
+
 
 def test_health_endpoint_no_db():
     client = APIClient()
