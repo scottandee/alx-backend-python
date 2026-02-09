@@ -28,7 +28,7 @@ jobs:
       - name: Run Lint
         run: |
           cd messaging_app
-          flake8 --exclude=migrations,messaging_app/settings.py
+          flake8 --exclude=migrations
       - name: Run Tests
         env:
           MYSQL_DB: ${{ secrets.MYSQL_DB }}
