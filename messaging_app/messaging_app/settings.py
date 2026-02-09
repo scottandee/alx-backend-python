@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, ".env"))
 
-SECRET_KEY = 'django-insecure-hcw@gq=td0kx_jc%$c3+32vl@o)cdcmh%dd)ot-me^dehh375#'
+SECRET_KEY = 'django-insecure-hcw@gq=@o)cdcmh%dd)#'
 
 DEBUG = True
 
@@ -42,17 +42,17 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "chats.User"
 REST_FRAMEWORK = {
-  'DEFAULT_PERMISSION_CLASSES': [
-      'rest_framework.permissions.IsAuthenticated',
-  ],
-  'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework_simplejwt.authentication.JWTAuthentication',
-      'rest_framework.authentication.BasicAuthentication',
-      'rest_framework.authentication.SessionAuthentication'
-  ),
-  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-  'PAGE_SIZE': 20,
-  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 SIMPLE_JWT = {
     "USER_ID_FIELD": "user_id",
