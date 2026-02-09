@@ -1,4 +1,4 @@
-name: Test messaging_app
+name: Test and Lint Messaging_app
 
 on:
   push:
@@ -25,6 +25,10 @@ jobs:
           cd messaging_app
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Run Lint
+        run: |
+          cd messaging_app
+          flake8 --exclude=migrations,messaging_app/settings.py
       - name: Run Tests
         env:
           MYSQL_DB: ${{ secrets.MYSQL_DB }}
