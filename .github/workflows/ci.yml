@@ -44,5 +44,5 @@ jobs:
         with:
           name: coverage-report
           path: |
-            htmlcov/
-            coverage.xml
+            messaging_app/htmlcov/
+            messaging_app/coverage.xml
